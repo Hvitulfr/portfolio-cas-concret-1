@@ -21,3 +21,4 @@ L'analyse des journaux HTTP a mis en evidence une injection SQL (`UNION_SELECT`)
 | Adresse IP source (SQLi) | `185.199.108.42` | Blocage au niveau pare-feu / WAF |
 | Ports locaux clandestins | `13022/tcp`, `13080/tcp` | Arret des processus |
 | Compte compromis | `svc_deploy` | Rotation des acces et revocation (`API-PROD-9941`) |
+# portfolio-cas-concret-1
