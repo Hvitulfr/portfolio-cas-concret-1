@@ -1,0 +1,8 @@
+index
+login
+admin
+status_js
+api_exfiltration
+backup
+config
+logs

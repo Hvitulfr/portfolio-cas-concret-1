@@ -1,0 +1,48 @@
+=======================================================================
+   INCIDENT RESPONSE PLAYBOOK : SERVEUR SRV-PROD-01
+=======================================================================
+Contexte : Une activite anormale a ete detectee sur le serveur Srv-Prod-01.
+Menez l'investigation, extrayez les indicateurs de compromission,
+neutralisez les acces persistants et appliquez le durcissement systeme.
+
+[JALON 1 - 1_journaux_siem]
+- Le repertoire 1_journaux_siem n'est pas accessible en l'etat :
+  restaurez les droits necessaires pour y acceder.
+- Appliquez les permissions suivantes :
+  * parefeu_waf.conf : rw-r-----
+  * cle_tls_prod.key : r--------
+- Analysez access.log : identifiez l'adresse IP a l'origine d'une
+  injection SQL ('UNION_SELECT') ayant abouti (code statut HTTP 200).
+
+[JALON 2 - 2_capture_forensique]
+- Localisez dans cette arborescence le fichier binaire d'une taille
+  exacte de 8192 octets.
+- Extrayez les chaines lisibles qu'il renferme et decodez le jeton
+  encode trouve a l'interieur.
+- Reperez les ports locaux en ecoute lies aux processus Python actifs
+  puis etablissez une connexion brute sur le port le plus bas afin de
+  repondre aux verifications demandees.
+
+[JALON 3 - 3_audit_web]
+- Enumerez les routes exposees sur le second port local a l'aide de la
+  liste de mots fournie dans ce repertoire.
+- Analysez le code source de la page accessible pour identifier les
+  elements attendus (en-tete HTTP, cookie, parametre POST) afin
+  d'interroger la route protegee et recuperer l'empreinte SHA256.
+
+[JALON 4 - 4_extraction_db]
+- Identifiez l'archive .enc correspondant a l'empreinte SHA256 obtenue,
+  puis decodez son contenu (encodage double : hexadecimal puis Base64).
+- Retrouvez le mot de passe associe a l'empreinte stockee dans
+  hash_compromis.txt a l'aide du dictionnaire disponible.
+- Interrogez utilisateurs_prod.db pour identifier le compte utilisant ce
+  mot de passe, puis extrayez et decodez sa cle associee dans cles_api.
+
+[JALON 5 - CLOTURE & LIVRABLES]
+- Arretez les deux processus Python malveillants actifs sur la machine.
+- Definissez les permissions d'audit_remediation_soc.py en rwx------
+  (lecture, ecriture et execution reservees au proprietaire uniquement).
+- Renseignez les informations d'enquete et les corrections attendues
+  dans audit_remediation_soc.py, puis executez le script pour generer
+  le rapport d'incident et l'encart CV.
+=======================================================================
